@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    rossorigin="anonymous"
+    ></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Juanma</title>
+	</head>
+
+    <body>
+    <header>
+    <p class="contador">Visitas:&#160; <span id="contador"> 0</span> </p>
+    </header>
+    <nav>
+    <h1 class="titulos">Codigo para saber quien no me sigue en ig:</h1>
+    </nav>
+
+    <script>
+      // Verificar si ya existe un contador en el localStorage
+      if (localStorage.getItem("contador")) {
+        // Obtener el contador almacenado
+        var contador = parseInt(localStorage.getItem("contador"));
+      } else {
+        // Si no existe, establecer el contador en 0
+        var contador = 0;
+      }
+
+      // Incrementar el contador en 1
+      contador++;
+
+      // Actualizar el valor en el localStorage
+      localStorage.setItem("contador", contador);
+
+      // Obtener el elemento span por su ID
+      var contadorElemento = document.getElementById("contador");
+
+      // Actualizar el contenido del elemento con el contador actualizado
+      contadorElemento.textContent = contador;
+    </script>
+
+
+    <pre id="codeContainer"></pre>
+    <button class="btn btn-primary boton-copiar" id="copyButton">Copiar código</button>
+
+    <script>
+      // Código que deseas mostrar
+     // Código que deseas mostrar
+     var code = `function getCookie(b){let c=\`; \${document.cookie}\`,a=c.split(\`; \${b}=\`);if(2===a.length)return a.pop().split(";").shift()}function sleep(a){return new Promise(b=>{setTimeout(b,a)})}function afterUrlGenerator(a){return\`https://www.instagram.com/graphql/query/?query_hash=3dec7e2c57367ef3da3d987d89f9dbc8&variables={"id":"\${ds_user_id}","include_reel":"true","fetch_mutual":"false","first":"24","after":"\${a}"}\`}function unfollowUserUrlGenerator(a){return\`https://www.instagram.com/web/friendships/\${a}/unfollow/\`}let followedPeople,csrftoken=getCookie("csrftoken"),ds_user_id=getCookie("ds_user_id"),initialURL=\`https://www.instagram.com/graphql/query/?query_hash=3dec7e2c57367ef3da3d987d89f9dbc8&variables={"id":"\${ds_user_id}","include_reel":"true","fetch_mutual":"false","first":"24"}\`,doNext=!0,filteredList=[],getUnfollowCounter=0,scrollCicle=0;async function startScript(){for(var c,d,e,b,f,g=Math.floor;doNext;){let a;try{a=await fetch(initialURL).then(a=>a.json())}catch(h){continue}followedPeople||(followedPeople=a.data.user.edge_follow.count),doNext=a.data.user.edge_follow.page_info.has_next_page,initialURL=afterUrlGenerator(a.data.user.edge_follow.page_info.end_cursor),getUnfollowCounter+=a.data.user.edge_follow.edges.length,a.data.user.edge_follow.edges.forEach(a=>{a.node.follows_viewer||filteredList.push(a.node)}),console.clear(),console.log(\`%c Progress \${getUnfollowCounter}/\${followedPeople} (\${parseInt(100*(getUnfollowCounter/followedPeople))}%)\`,"background: #222; color: #bada55;font-size: 35px;"),console.log("%c This users don't follow you (Still in progress)","background: #222; color: #FC4119;font-size: 13px;"),filteredList.forEach(a=>{console.log(a.username)}),await sleep(g(400*Math.random())+1e3),scrollCicle++,6<scrollCicle&&(scrollCicle=0,console.log("%c Sleeping 10 secs to prevent getting temp blocked","background: #222; color: ##FF0000;font-size: 35px;"),await sleep(1e4))}c=JSON.stringify(filteredList),d="usersNotFollowingBack.json",e="application/json",b=document.createElement("a"),f=new Blob([c],{type:e}),b.href=URL.createObjectURL(f),b.download=d,b.click(),console.log("%c All DONE!","background: #222; color: #bada55;font-size: 25px;")}startScript();`;
+
+
+      // Obtén la referencia del contenedor del código y establece el contenido
+    var codeContainer = document.getElementById('codeContainer');
+    codeContainer.textContent = code;
+
+      // Función para copiar el código al portapapeles
+    function copyCode() {
+        var range = document.createRange();
+        range.selectNode(codeContainer);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+    }
+
+      // Agrega un controlador de eventos al botón para copiar el código
+    var copyButton = document.getElementById('copyButton');
+    copyButton.addEventListener('click', copyCode);
+    </script>
+
+
+    
+
+
+
+
+</body>
+</html>
